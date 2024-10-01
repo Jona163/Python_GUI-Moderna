@@ -1,0 +1,2 @@
+﻿Pillow==10.1.0
+matplotlib==3.7.1
