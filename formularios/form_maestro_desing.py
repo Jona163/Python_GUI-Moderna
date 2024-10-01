@@ -60,3 +60,54 @@ class FormularioMaestroDesign(tk.Tk):
         self.buttonMenuLateral = tk.Button(self.barra_superior, text="\uf0c9", font=font_awesome,
                                            command=self.toggle_panel, bd=0, bg=COLOR_BARRA_SUPERIOR, fg="white")
         self.buttonMenuLateral.pack(side=tk.LEFT)
+
+
+        # Etiqueta de informacion
+        self.labelTitulo = tk.Label(
+            self.barra_superior, text="servicio@autodidacta.mx")
+        self.labelTitulo.config(fg="#fff", font=(
+            "Roboto", 10), bg=COLOR_BARRA_SUPERIOR, padx=10, width=20)
+        self.labelTitulo.pack(side=tk.RIGHT)
+    
+    def controles_menu_lateral(self):
+        # Configuración del menú lateral
+        ancho_menu = 20
+        alto_menu = 2
+        font_awesome = font.Font(family='FontAwesome', size=15)
+         
+         # Etiqueta de perfil
+        self.labelPerfil = tk.Label(
+            self.menu_lateral, image=self.perfil, bg=COLOR_MENU_LATERAL)
+        self.labelPerfil.pack(side=tk.TOP, pady=10)
+
+        # Botones del menú lateral
+        
+        self.buttonDashBoard = tk.Button(self.menu_lateral)        
+        self.buttonProfile = tk.Button(self.menu_lateral)        
+        self.buttonPicture = tk.Button(self.menu_lateral)
+        self.buttonInfo = tk.Button(self.menu_lateral)        
+        self.buttonSettings = tk.Button(self.menu_lateral)
+
+        buttons_info = [
+            ("Dashboard", "\uf109", self.buttonDashBoard,self.abrir_panel_graficas ),
+            ("Profile", "\uf007", self.buttonProfile,self.abrir_panel_en_construccion),
+            ("Picture", "\uf03e", self.buttonPicture,self.abrir_panel_en_construccion),
+            ("Info", "\uf129", self.buttonInfo,self.abrir_panel_info),
+            ("Settings", "\uf013", self.buttonSettings,self.abrir_panel_en_construccion)
+        ]
+
+        for text, icon, button,comando in buttons_info:
+            self.configurar_boton_menu(button, text, icon, font_awesome, ancho_menu, alto_menu,comando)                    
+    
+    def controles_cuerpo(self):
+        # Imagen en el cuerpo principal
+        label = tk.Label(self.cuerpo_principal, image=self.logo,
+                         bg=COLOR_CUERPO_PRINCIPAL)
+        label.place(x=0, y=0, relwidth=1, relheight=1)        
+  
+    def configurar_boton_menu(self, button, text, icon, font_awesome, ancho_menu, alto_menu, comando):
+        button.config(text=f"  {icon}    {text}", anchor="w", font=font_awesome,
+                      bd=0, bg=COLOR_MENU_LATERAL, fg="white", width=ancho_menu, height=alto_menu,
+                      command = comando)
+        button.pack(side=tk.TOP)
+        self.bind_hover_events(button)
