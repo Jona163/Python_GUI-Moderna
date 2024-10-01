@@ -111,3 +111,40 @@ class FormularioMaestroDesign(tk.Tk):
                       command = comando)
         button.pack(side=tk.TOP)
         self.bind_hover_events(button)
+
+
+    def bind_hover_events(self, button):
+        # Asociar eventos Enter y Leave con la función dinámica
+        button.bind("<Enter>", lambda event: self.on_enter(event, button))
+        button.bind("<Leave>", lambda event: self.on_leave(event, button))
+
+    def on_enter(self, event, button):
+        # Cambiar estilo al pasar el ratón por encima
+        button.config(bg=COLOR_MENU_CURSOR_ENCIMA, fg='white')
+
+    def on_leave(self, event, button):
+        # Restaurar estilo al salir el ratón
+        button.config(bg=COLOR_MENU_LATERAL, fg='white')
+
+    def toggle_panel(self):
+        # Alternar visibilidad del menú lateral
+        if self.menu_lateral.winfo_ismapped():
+            self.menu_lateral.pack_forget()
+        else:
+            self.menu_lateral.pack(side=tk.LEFT, fill='y')
+    # Nuevo
+    def abrir_panel_graficas(self):   
+        self.limpiar_panel(self.cuerpo_principal)     
+        FormularioGraficasDesign(self.cuerpo_principal)   
+        
+    def abrir_panel_en_construccion(self):   
+        self.limpiar_panel(self.cuerpo_principal)     
+        FormularioSitioConstruccionDesign(self.cuerpo_principal,self.img_sitio_construccion) 
+
+    def abrir_panel_info(self):           
+        FormularioInfoDesign()                    
+
+    def limpiar_panel(self,panel):
+    # Función para limpiar el contenido del panel
+        for widget in panel.winfo_children():
+            widget.destroy()
